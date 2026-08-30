@@ -1,5 +1,5 @@
 // Initialize Lucide icons
-import { createIcons, Search, Share2, Globe, Grid2x2, Grid3x3, LayoutGrid, Check, Copy, Link, ArrowRight, ChevronRight, UserRound, Rss, MessageSquare } from 'lucide';
+import { createIcons, Search, Share2, Globe, Grid2x2, Grid3x3, LayoutGrid, Check, Copy, Link, ArrowRight, ChevronRight, UserRound, Rss, MessageSquare, Tag } from 'lucide';
 
 export function initIcons() {
   createIcons({
@@ -17,7 +17,8 @@ export function initIcons() {
       ChevronRight,
       UserRound,
       Rss,
-      MessageSquare
+      MessageSquare,
+      Tag
     }
   });
 }
