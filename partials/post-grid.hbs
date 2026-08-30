@@ -1,0 +1,58 @@
+<div x-data="{ 
+    layout: localStorage.getItem('pulse_grid_layout') || '2',
+    isSwitching: false,
+    setLayout(val) {
+        if (this.layout === val) return;
+        this.isSwitching = true;
+        this.layout = val;
+        localStorage.setItem('pulse_grid_layout', val);
+        setTimeout(() => { this.isSwitching = false; }, 250);
+    }
+}" class="w-full">
+
+    <!-- Grid Header Bar -->
+    <div class="flex mt-24 mb-36 items-center {{#if title}}justify-between pb-4{{else}}justify-end{{/if}}">
+        {{#if title}}
+        <!-- Left Side: Title -->
+        <div class="flex items-center gap-3">
+            <h2 class="text-xl md:text-2xl font-bold tracking-tight text-foreground">
+                {{title}}
+            </h2>
+        </div>
+        {{/if}}
+
+        <!-- Right Side: 2 & 3 Grid Column View Switcher Buttons -->
+        <div
+            class="inline-flex items-center px-1 gap-1 rounded-full bg-secondary/50 border border-border/80 backdrop-blur-md shadow-xs">
+            <button @click="setLayout('2')"
+                :class="layout === '2' ? 'bg-primary text-primary-foreground shadow-sm scale-105' : 'text-muted-foreground hover:text-foreground hover:bg-secondary/60'"
+                class="flex items-center justify-center px-4 py-2 rounded-full transition-all duration-200 ease-out text-xs font-semibold gap-2 cursor-pointer active:scale-90"
+                aria-label="2 Columns Grid View" title="2 Columns Grid">
+                <i data-lucide="grid-2x2" class="w-4 h-4 transition-transform duration-200"
+                    :class="layout === '2' ? 'scale-110' : ''"></i>
+            </button>
+            <button @click="setLayout('3')"
+                :class="layout === '3' ? 'bg-primary text-primary-foreground shadow-sm scale-105' : 'text-muted-foreground hover:text-foreground hover:bg-secondary/60'"
+                class="flex items-center justify-center px-4 py-2 rounded-full transition-all duration-200 ease-out text-xs font-semibold gap-2 cursor-pointer active:scale-90"
+                aria-label="3 Columns Grid View" title="3 Columns Grid">
+                <i data-lucide="grid-3x3" class="w-4 h-4 transition-transform duration-200"
+                    :class="layout === '3' ? 'scale-110' : ''"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Posts Grid (Smooth Entrance & Layout Switch Animations) -->
+    <div :class="{
+            'grid-cols-1 md:grid-cols-2 max-w-7xl lg:grid-cols-3 gap-6 md:gap-8': layout === '3',
+            'grid-cols-1 max-w-3xl md:grid-cols-2 gap-x-8 gap-y-12 md:gap-y-20': layout === '2',
+            'opacity-60 scale-[0.99]': isSwitching
+         }"
+        class="grid transition-all duration-300 ease-out mx-auto animate-in fade-in-0 slide-in-from-bottom-5 duration-700">
+        {{#foreach posts}}
+        <div class="transition-all duration-300 ease-out"
+            :class="isSwitching ? 'opacity-40 scale-95 translate-y-1' : 'opacity-100 scale-100 translate-y-0'">
+            {{> "card"}}
+        </div>
+        {{/foreach}}
+    </div>
+</div>

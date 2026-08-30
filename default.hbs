@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{@site.locale}}">
+<html lang="{{@site.locale}}" class="dark">
 
 <head>
     <meta charset="utf-8" />
@@ -12,9 +12,33 @@
 
 </head>
 
-<body class="{{body_class}} bg-background text-foreground antialiased transition-colors duration-300">
+<body
+    class="{{body_class}} dark bg-background text-foreground antialiased min-h-screen flex flex-col font-sans selection:bg-muted selection:text-foreground relative">
 
-    <div class="flex flex-col min-h-screen">
+    {{#if @site.cover_image}}
+    <!-- Futuristic Cover Image & Gradient Blend System -->
+    <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+        <!-- Base Cover Image Layer (Controlled by cover_image_display_mode & cover_image_opacity) -->
+        <div class="absolute inset-0 bg-cover bg-center bg-no-repeat mix-blend-luminosity {{#match @custom.cover_image_display_mode "Fade on Entire Website"}}[mask-image:linear-gradient(to_bottom,rgba(0,0,0,1)_0%,rgba(0,0,0,0)_350px)]{{else match @custom.cover_image_display_mode "Fade on Post Only"}}{{#is "post"}}[mask-image:linear-gradient(to_bottom,rgba(0,0,0,1)_0%,rgba(0,0,0,0)_350px)]{{/is}}{{else match @custom.cover_image_display_mode "Full Background (All Pages)"}}{{else match @custom.cover_image_display_mode "Hide on Post & Page"}}{{#is "post, page"}}hidden{{/is}}{{else}}{{#is "post, page"}}[mask-image:linear-gradient(to_bottom,rgba(0,0,0,1)_0%,rgba(0,0,0,0)_350px)]{{/is}}{{/match}}"
+            style="background-image: url('{{img_url @site.cover_image size="xl"}}'); opacity: {{#if @custom.cover_image_opacity}}{{@custom.cover_image_opacity}}{{else}}15%{{/if}};">
+        </div>
+
+        <!-- Visual Atmosphere Overlay Layer (Controlled by cover_image_gradient_style) -->
+        {{#unless (match @custom.cover_image_display_mode "Full Background (All Pages)")}}
+        {{#match @custom.cover_image_gradient_style "Radial Vignette"}}
+        <div class="absolute inset-0 [background:radial-gradient(ellipse_at_top,transparent_20%,hsl(var(--background))_95%)]"></div>
+        {{else match @custom.cover_image_gradient_style "Top Ambient Glow"}}
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-background/40 to-background"></div>
+        {{else match @custom.cover_image_gradient_style "None"}}
+        {{else}}
+        <!-- Default: Futuristic Dark Fade -->
+        <div class="absolute inset-0 bg-gradient-to-b from-background/20 via-background/60 to-background"></div>
+        {{/match}}
+        {{/unless}}
+    </div>
+    {{/if}}
+
+    <div class="relative z-10 flex flex-col min-h-screen text-foreground">
 
         {{> "header"}}
 

@@ -1,0 +1,38 @@
+<!-- Comments & Action Buttons Section -->
+<div id="comments" x-data="{ openComments: false }" class="w-full my-28 py-8">
+    <div class="flex flex-wrap items-center justify-center gap-4">
+
+        {{#has visibility="public"}}
+        <!-- Share Button -->
+        {{> "share"}}
+        {{/has}}
+
+        {{#if comments}}
+        <!-- Show / Hide Comments Button -->
+        <button type="button" @click="openComments = !openComments"
+            :class="openComments ? 'bg-secondary text-foreground border-primary/50 ring-1 ring-primary/20' : 'bg-secondary/80 text-foreground border-border hover:bg-secondary'"
+            class="relative inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full border text-xs font-semibold transition-all duration-200 cursor-pointer group shadow-sm">
+
+            {{> "components/icon" name="message-square" class="w-4 h-4 text-muted-foreground group-hover:text-foreground
+            transition-colors"}}
+
+            <span x-text="openComments ? 'Hide comments' : 'Show comments'">Show comments</span>
+
+            <!-- Comment Count Badge -->
+            <span
+                class="inline-flex items-center justify-center rounded-full bg-primary text-primary-foreground text-[10px] font-bold px-2 py-0.5 min-w-[20px] shadow-xs">
+                {{comment_count empty="0" singular="" plural=""}}
+            </span>
+        </button>
+        {{/if}}
+    </div>
+
+    <!-- Full Width Comments Collapsible Panel -->
+    {{#if comments}}
+    <div x-show="openComments" x-collapse.duration.200ms class="mt-8 w-full">
+        <div class="rounded-sm p-6 w-full shadow-lg">
+            {{comments}}
+        </div>
+    </div>
+    {{/if}}
+</div>

@@ -1,17 +1,29 @@
-<footer class="py-12 mt-20 border-t border-gray-100 dark:border-gray-800">
-    <div class="max-w-7xl mx-auto px-4 md:px-8">
-        <div class="flex flex-col md:flex-row justify-between items-center gap-6">
-            <div class="text-sm text-gray-500 dark:text-gray-400">
-                &copy; {{date format="YYYY"}} {{@site.title}}. All rights reserved.
-            </div>
-            <div class="flex items-center gap-6">
+<footer class="bg-background/40 backdrop-blur-md border-t border-border/60 py-16 md:py-20 px-4 md:px-8 text-xs text-muted-foreground">
+    <div class="max-w-7xl mx-auto flex flex-col gap-12">
+        <div class="pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+            <!-- Secondary Navigation -->
+            {{#if @site.secondary_navigation}}
+            <div class="flex items-center">
                 {{navigation type="secondary"}}
-                {{#if @site.facebook}}
-                    <a href="{{social_url type="facebook"}}" class="text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">Facebook</a>
-                {{/if}}
-                {{#if @site.twitter}}
-                    <a href="{{social_url type="twitter"}}" class="text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">Twitter</a>
-                {{/if}}
+            </div>
+            {{/if}}
+
+            <!-- Social Icons Bar -->
+            <div class="flex items-center gap-3 mt-6 lg:mt-0">
+
+                {{#social_accounts @site}}
+                <a class="flex items-center justify-center w-9 h-9 shrink-0 rounded-lg bg-secondary/50 border border-border text-foreground hover:bg-secondary hover:text-foreground transition-all [&_svg]:w-4 [&_svg]:h-4 [&_svg]:max-w-4 [&_svg]:max-h-4 [&_svg]:shrink-0"
+                    href="{{href}}" target="_blank" rel="noopener" aria-label="{{name}}">
+                    {{#> (concat "icons/" type)}}
+                    {{!-- Fallback rendered when no per-platform icon partial exists --}}
+                    <span class="icon icon-web">{{name}}</span>
+                    {{/undefined}}
+                </a>
+                {{/social_accounts}}
+                <a href="{{@site.url}}/rss/" target="_blank" rel="noopener noreferrer" aria-label="RSS Feed"
+                    class="flex items-center justify-center w-9 h-9 shrink-0 rounded-lg bg-secondary/50 border border-border text-foreground hover:bg-secondary hover:text-foreground transition-all [&_svg]:w-4 [&_svg]:h-4 [&_svg]:shrink-0">
+                    <i data-lucide="rss" class="w-4 h-4"></i>
+                </a>
             </div>
         </div>
     </div>
