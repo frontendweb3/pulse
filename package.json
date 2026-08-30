@@ -1,5 +1,5 @@
 {
-  "name": "ghost-theme-starter-kit",
+  "name": "pulse",
   "description": "A minimal Ghost CMS theme starter.",
   "version": "1.0.0",
   "license": "MIT",
@@ -34,6 +34,7 @@
     "vite-plugin-zip-pack": "^1.2.4"
   },
   "dependencies": {
+    "@alpinejs/collapse": "^3.16.2",
     "@fontsource-variable/inter": "^5.2.8",
     "@tailwindcss/typography": "^0.5.19",
     "@tailwindcss/vite": "^4.2.1",
