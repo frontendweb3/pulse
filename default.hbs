@@ -5,7 +5,30 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{meta_title}}</title>
-    {{> "hmr"}}
+
+    <!-- BEGIN HMR DEV SCRIPT -->
+    <script id="ghost-vite-hmr">
+        (function () {
+            const host = window.location.hostname || 'localhost';
+            const isLocal = host === 'localhost' || host === '127.0.0.1' || host.endsWith('.local');
+
+            if (isLocal) {
+                const port = 5173;
+                const viteBaseUrl = `http://${host}:${port}`;
+
+                fetch(`${viteBaseUrl}/@vite/client`, { mode: 'no-cors' })
+                    .then(() => {
+                        const hmrScript = document.createElement('script');
+                        hmrScript.type = 'module';
+                        hmrScript.src = `${viteBaseUrl}/assets/js/hmr.js`;
+                        document.head.appendChild(hmrScript);
+                    })
+                    .catch(() => { });
+            }
+        })();
+    </script>
+    <!-- END HMR DEV SCRIPT -->
+
     {{> "style-script"}} {{!-- partials/style-script.hbs --}}
 
     {{ghost_head}}
@@ -19,14 +42,24 @@
     <!-- Futuristic Cover Image & Gradient Blend System -->
     <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
         <!-- Base Cover Image Layer (Controlled by cover_image_display_mode & cover_image_opacity) -->
-        <div class="absolute inset-0 bg-cover bg-center bg-no-repeat mix-blend-luminosity {{#match @custom.cover_image_display_mode "Fade on Entire Website"}}[mask-image:linear-gradient(to_bottom,rgba(0,0,0,1)_0%,rgba(0,0,0,0)_350px)]{{else match @custom.cover_image_display_mode "Fade on Post Only"}}{{#is "post"}}[mask-image:linear-gradient(to_bottom,rgba(0,0,0,1)_0%,rgba(0,0,0,0)_350px)]{{/is}}{{else match @custom.cover_image_display_mode "Full Background (All Pages)"}}{{else match @custom.cover_image_display_mode "Hide on Post & Page"}}{{#is "post, page"}}hidden{{/is}}{{else}}{{#is "post, page"}}[mask-image:linear-gradient(to_bottom,rgba(0,0,0,1)_0%,rgba(0,0,0,0)_350px)]{{/is}}{{/match}}"
-            style="background-image: url('{{img_url @site.cover_image size="xl"}}'); opacity: {{#if @custom.cover_image_opacity}}{{@custom.cover_image_opacity}}{{else}}15%{{/if}};">
+        <div class="absolute inset-0 bg-cover bg-center bg-no-repeat mix-blend-luminosity {{#match @custom.cover_image_display_mode "
+            Fade on Entire Website"}}[mask-image:linear-gradient(to_bottom,rgba(0,0,0,1)_0%,rgba(0,0,0,0)_350px)]{{else
+            match @custom.cover_image_display_mode "Fade on Post Only" }}{{#is "post"
+            }}[mask-image:linear-gradient(to_bottom,rgba(0,0,0,1)_0%,rgba(0,0,0,0)_350px)]{{/is}}{{else match
+            @custom.cover_image_display_mode "Full Background (All Pages)" }}{{else match
+            @custom.cover_image_display_mode "Hide on Post & Page" }}{{#is "post, page"
+            }}hidden{{/is}}{{else}}{{#is "post, page"
+            }}[mask-image:linear-gradient(to_bottom,rgba(0,0,0,1)_0%,rgba(0,0,0,0)_350px)]{{/is}}{{/match}}"
+            style="background-image: url('{{img_url @site.cover_image size=" xl"}}'); opacity: {{#if
+            @custom.cover_image_opacity}}{{@custom.cover_image_opacity}}{{else}}15%{{/if}};">
         </div>
 
         <!-- Visual Atmosphere Overlay Layer (Controlled by cover_image_gradient_style) -->
         {{#unless (match @custom.cover_image_display_mode "Full Background (All Pages)")}}
         {{#match @custom.cover_image_gradient_style "Radial Vignette"}}
-        <div class="absolute inset-0 [background:radial-gradient(ellipse_at_top,transparent_20%,hsl(var(--background))_95%)]"></div>
+        <div
+            class="absolute inset-0 [background:radial-gradient(ellipse_at_top,transparent_20%,hsl(var(--background))_95%)]">
+        </div>
         {{else match @custom.cover_image_gradient_style "Top Ambient Glow"}}
         <div class="absolute inset-0 bg-gradient-to-b from-transparent via-background/40 to-background"></div>
         {{else match @custom.cover_image_gradient_style "None"}}
