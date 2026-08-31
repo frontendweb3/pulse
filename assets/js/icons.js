@@ -1,5 +1,5 @@
 // Initialize Lucide icons
-import { createIcons, Search, Share2, Globe, Grid2x2, Grid3x3, LayoutGrid, Check, Copy, Link, ArrowRight, ChevronRight, ChevronLeft, UserRound, Rss, MessageSquare, Tag } from 'lucide';
+import { createIcons, Search, Share2, Globe, Grid2x2, Grid3x3, LayoutGrid, Check, Copy, Link, ArrowRight, ArrowUpRight, ChevronRight, ChevronLeft, UserRound, User, LogIn, UserPlus, Rss, MessageSquare, Tag, Sparkles, Star } from 'lucide';
 
 export function initIcons() {
   createIcons({
@@ -14,12 +14,18 @@ export function initIcons() {
       Copy,
       Link,
       ArrowRight,
+      ArrowUpRight,
       ChevronRight,
       ChevronLeft,
       UserRound,
+      User,
+      LogIn,
+      UserPlus,
       Rss,
       MessageSquare,
-      Tag
+      Tag,
+      Sparkles,
+      Star
     }
   });
 }
