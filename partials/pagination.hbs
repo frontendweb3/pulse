@@ -1,24 +1,25 @@
 {{#match pagination.pages "!=" 1 }}
 
-<nav class="flex items-center justify-between mt-22 px-4 py-8 sm:px-0 w-full" role="navigation" aria-label="Pagination">
+<nav class="flex items-center justify-between mt-16 md:mt-24 px-4 py-8 sm:px-0 w-full" role="navigation"
+    aria-label="Pagination">
     <div class="flex flex-1 w-0">
         {{#if prev}}
         <a href="{{page_url prev}}"
-            class="relative inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-secondary border border-border text-xs font-semibold text-foreground hover:bg-secondary/80 transition-all cursor-pointer shadow-sm group">
-
-            {{> components/icon name="chevron-left" class="mr-3 h-5 w-5" }}
-            Previous
+            class="relative inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-secondary/80 border border-border text-xs font-semibold text-foreground hover:text-primary hover:border-primary/50 hover:bg-secondary transition-all duration-300 cursor-pointer shadow-xs hover:shadow-md hover:scale-105 active:scale-95 group">
+            {{> components/icon name="chevron-left" class="w-4 h-4 transition-transform duration-300
+            group-hover:-translate-x-1" }}
+            <span>Previous</span>
         </a>
         {{/if}}
     </div>
 
     <div class="flex flex-1 justify-end w-0">
-
         {{#if next}}
-        <a class="relative inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-secondary border border-border text-xs font-semibold text-foreground hover:bg-secondary/80 transition-all cursor-pointer shadow-sm group"
-            href="{{page_url next}}">
-            Next
-            {{> components/icon name="chevron-right" class="ml-3 h-5 w-5" }}
+        <a href="{{page_url next}}"
+            class="relative inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-secondary/80 border border-border text-xs font-semibold text-foreground hover:text-primary hover:border-primary/50 hover:bg-secondary transition-all duration-300 cursor-pointer shadow-xs hover:shadow-md hover:scale-105 active:scale-95 group">
+            <span>Next</span>
+            {{> components/icon name="chevron-right" class="w-4 h-4 transition-transform duration-300
+            group-hover:translate-x-1" }}
         </a>
         {{/if}}
     </div>
