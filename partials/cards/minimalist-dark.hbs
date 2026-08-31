@@ -1,0 +1,34 @@
+<article
+    class="group flex flex-col h-full w-full cursor-pointer overflow-hidden rounded-xl bg-card border border-border/40 hover:border-border/80 transition-all duration-300 shadow-sm hover:shadow-md">
+    <!-- Image Media Container with Overlay Title & Accent Line -->
+    {{#if feature_image}}
+    <a href="{{url}}" class="block w-full overflow-hidden aspect-[1.6/1] shrink-0 relative bg-neutral-900">
+        <img class="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+            srcset="{{img_url feature_image size="s"}} 300w, {{img_url feature_image size="m"}} 600w, {{img_url feature_image size="l"}} 1000w"
+            sizes="(max-width: 768px) 100vw, 50vw"
+            src="{{img_url feature_image size="m"}}"
+            alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}"
+            loading="lazy" />
+    </a>
+    {{/if}}
+
+    <!-- Card Footer Section -->
+    <div class="p-4 md:p-5 flex flex-col flex-1 justify-between gap-4 bg-card">
+        <a href="{{url}}" class="group-hover:text-primary transition-colors">
+            <h2 class="text-base md:text-lg font-bold text-foreground tracking-tight leading-snug">
+                {{title}}
+            </h2>
+        </a>
+
+        <div
+            class="flex items-center justify-between text-xs text-muted-foreground font-medium mt-auto pt-2 border-t border-border/30">
+            {{#primary_author}}
+            <span class="font-semibold text-foreground/80 hover:text-foreground transition-colors">{{name}}</span>
+            {{/primary_author}}
+
+            <time datetime="{{date format="YYYY-MM-DD"}}">
+                {{date format="MMM D, YYYY"}}
+            </time>
+        </div>
+    </div>
+</article>
