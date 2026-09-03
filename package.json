@@ -25,10 +25,15 @@
         "type": "select",
         "options": [
           "0%",
+          "1%",
           "2%",
+          "3%",
           "4%",
+          "5%",
           "6%",
+          "7%",
           "8%",
+          "9%",
           "10%",
           "15%",
           "20%",
@@ -63,7 +68,7 @@
         ],
         "default": "Fade on Post & Page Only",
         "group": "site",
-        "description": "Control where and how the background cover image is displayed across the site (Fade top hero, Full screen, or Hide on post/page)"
+        "description": "Control cover image display behavior across pages"
       },
       "cover_image_gradient_style": {
         "type": "select",
@@ -75,7 +80,18 @@
         ],
         "default": "Futuristic Dark Fade",
         "group": "site",
-        "description": "Gradient blend overlay style for cover image (enhances post readability and futuristic UI depth)"
+        "description": "Gradient blend overlay style for cover image"
+      },
+      "post_card_style": {
+        "type": "select",
+        "options": [
+          "Minimalist Dark Card",
+          "Modern Badge Card",
+          "Classic Minimal Card"
+        ],
+        "default": "Minimalist Dark Card",
+        "group": "post",
+        "description": "Select post card design style displayed across post feeds"
       }
     }
   },
