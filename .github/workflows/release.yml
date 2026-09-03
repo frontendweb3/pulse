@@ -41,7 +41,11 @@ jobs:
           # Get name and version from package.json
           NAME=$(node -p "require('./package.json').name")
           VERSION=$(node -p "require('./package.json').version")
+          BUILD_ZIP="${NAME}.zip"
           ZIP_NAME="${NAME}-${VERSION}.zip"
+          if [ -f "$BUILD_ZIP" ] && [ ! -f "$ZIP_NAME" ]; then
+            cp "$BUILD_ZIP" "$ZIP_NAME"
+          fi
           pnpm dlx gscan@latest --v6 --canary --verbose -z "$ZIP_NAME"
 
       - name: Upload release asset
@@ -51,7 +55,12 @@ jobs:
           # Get name and version from package.json
           NAME=$(node -p "require('./package.json').name")
           VERSION=$(node -p "require('./package.json').version")
+          BUILD_ZIP="${NAME}.zip"
           ZIP_NAME="${NAME}-${VERSION}.zip"
+          
+          if [ -f "$BUILD_ZIP" ] && [ ! -f "$ZIP_NAME" ]; then
+            cp "$BUILD_ZIP" "$ZIP_NAME"
+          fi
           
           echo "Uploading $ZIP_NAME to release ${{ github.event.release.tag_name }}..."
           
