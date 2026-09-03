@@ -15,7 +15,8 @@
     "dev": "vite",
     "build": "vite build",
     "test": "pnpm dlx gscan@latest . --v6",
-    "screenshot": "node ./scripts/screenshots/capture.js"
+    "screenshot": "node ./scripts/screenshots/capture.js",
+    "dist": "rm -rf ./assets/dist"
   },
   "config": {
     "posts_per_page": 10,
@@ -111,7 +112,6 @@
   },
   "dependencies": {
     "@alpinejs/collapse": "^3.16.2",
-    "@fontsource-variable/inter": "^5.2.8",
     "@tailwindcss/typography": "^0.5.19",
     "@tailwindcss/vite": "^4.2.1",
     "alpinejs": "^3.15.8",
