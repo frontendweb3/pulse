@@ -1,34 +1,29 @@
-# Ghost Theme Starter Kit
+# Pulse Ghost CMS Theme
 
-<div align="center">
-   <img src="https://mintcdn.com/ghost/5_xpDDjqLTzEezAK/images/3715a5ca-ghost-logo-light.png?w=1100&fit=max&auto=format&n=5_xpDDjqLTzEezAK&q=85&s=02cd3d095e93413aef1f203afb1faaea" alt="Ghost CMS" height="64" />
-   <img src="https://vitejs.dev/logo.svg" alt="Vite" height="64" style="margin: 0 16px;" />
-   <img src="https://upload.wikimedia.org/wikipedia/commons/d/d5/Tailwind_CSS_Logo.svg" alt="Tailwind CSS" height="64" />
-</div>
-
-A minimal Ghost CMS theme starter that combines Ghost templates with modern tools (Vite + Tailwind CSS 4) to help you build and deploy themes quickly. Clone it, customize it, and use it for personal, client, or commercial projects.
+A minimal, high-performance Ghost CMS theme built with modern tools (Vite + Tailwind CSS 4 + Alpine.js) to deliver a sleek, dark-mode-first publishing experience.
 
 ## Features
 
 - **Vite & HMR**: Hot Module Replacement for Handlebars (`.hbs`), CSS/Tailwind, and JavaScript assets
-- **Tailwind CSS 4**: Next-gen utility-first styling with `@tailwindcss/typography` and CSS variable design tokens
+- **Tailwind CSS 4**: Utility-first styling with `@tailwindcss/typography` and sleek design tokens
+- **Alpine.js**: Lightweight, reactive UI interactions for comments, menus, and collapse components
 - **Code Syntax Highlighting**: Automatic code block highlighting via `highlight.js` with a built-in copy button (`highlightjs-copy`)
-- **Ready-to-ship Structure**: Complete layout templates, responsive header/footer, pagination, and Lucide icons
+- **Lucide Icons**: Scalable SVG icons initialized dynamically
 - **Automatic Image Optimization**: Integrated `Sharp` image optimization pipeline via `vite-plugin-image-optimizer`
-- **One-command Packaging**: Production build exports an optimized ZIP file ready for Ghost upload
+- **One-Command Packaging**: Exports a production-ready `.zip` theme archive compatible with Ghost 6.x
 
 ## Prerequisites
 
 - Node.js 22+ and `pnpm` installed globally
-- A local or remote Ghost instance (v6+) to test the theme
+- A Ghost CMS instance (v6.0.0 or higher)
 
-## Quick Start
+## Quick Start (Development)
 
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/frontendweb3/ghost-theme-starter-kit.git
-   cd ghost-theme-starter
+   git clone https://github.com/frontendweb3/pulse.git
+   cd pulse
    ```
 
 2. Install dependencies:
@@ -37,7 +32,7 @@ A minimal Ghost CMS theme starter that combines Ghost templates with modern tool
    pnpm install
    ```
 
-3. Develop with Hot Module Replacement (HMR):
+3. Start development server with Hot Module Replacement (HMR):
 
    ```bash
    pnpm dev
@@ -45,112 +40,71 @@ A minimal Ghost CMS theme starter that combines Ghost templates with modern tool
 
    This starts the Vite dev server on `http://localhost:5173`. Open your local Ghost site at `http://localhost:2368` to see live updates.
 
-4. Production build:
+4. Build production assets and package theme:
 
    ```bash
    pnpm build
    ```
 
-   This compiles assets into `assets/dist/` and generates the theme `.zip` file for deployment.
+   This compiles assets into `assets/dist/` and generates `pulse.zip` in the root directory.
 
-## How Hot Module Replacement (HMR) Works with Ghost CMS
+## Installing Theme in Ghost CMS 6
 
-Ghost CMS runs on `http://localhost:2368` and Vite dev server runs on `http://localhost:5173`.
+### Option A: Upload via Ghost Admin UI (Production)
 
-- **Client Injection**: [partials/hmr.hbs](file:///home/officialrajdeepsingh/frontendweb/ghost-theme/ghost-theme-starter/partials/hmr.hbs) automatically detects `localhost` / `127.0.0.1` and injects Vite's client script (`@vite/client`) and `assets/js/main.js`.
-- **Template Reloads (`.hbs`)**: When you edit any `.hbs` Handlebars template, the custom `ghostHmrPlugin` in [vite.config.ts](file:///home/officialrajdeepsingh/frontendweb/ghost-theme/ghost-theme-starter/vite.config.ts) invalidates Vite's module graph (allowing Tailwind CSS v4 to scan for new classes) and sends a `full-reload` signal to refresh the page in your browser.
-- **Instant CSS & JS Updates (`.css` / `.js`)**: Styling changes (Tailwind classes) and JS changes update instantly in the browser via Vite's native HMR without refreshing the page.
+1. Run `pnpm build` in your terminal to generate the `pulse.zip` theme package.
+2. Log into your Ghost Admin Dashboard (`https://your-site.com/ghost`).
+3. Click on the **Settings** icon (gear icon in bottom-left corner).
+4. Navigate to **Site design** -> **Change theme** (or **Design & Branding** -> **Theme**).
+5. Click **Upload theme** in the top right.
+6. Drag and drop `pulse.zip` (or browse to select `pulse.zip`).
+7. Click **Activate** to make Pulse your active theme.
 
-## Code Syntax Highlighting (Highlight.js)
+### Option B: Local Development / Symlink
+
+1. Copy or symlink the theme directory into your local Ghost installation's `content/themes/` folder:
+
+   ```bash
+   ln -s /path/to/pulse /path/to/ghost/content/themes/pulse
+   ```
+
+2. Restart your Ghost CLI instance:
+
+   ```bash
+   ghost restart
+   ```
+
+3. Go to Ghost Admin (`http://localhost:2368/ghost`), navigate to **Settings** -> **Design**, and activate **Pulse**.
+
+## How Hot Module Replacement (HMR) Works
+
+- **Client Injection**: `default.hbs` automatically detects `localhost` / `127.0.0.1` and injects Vite's client script (`@vite/client`).
+- **Template Reloads (`.hbs`)**: When you edit any `.hbs` Handlebars template, the custom `ghostHmrPlugin` in `vite.config.ts` invalidates Vite's module graph (re-scanning Tailwind v4 classes) and sends a full-reload signal to your browser.
+- **Instant CSS & JS Updates**: Styling and JS changes update instantly in the browser without full page refreshes.
+
+## Syntax Highlighting (Highlight.js)
 
 Code syntax highlighting is pre-configured for code blocks inside posts and pages.
 
-- **Implementation**: Located in `assets/js/highlight.js` and loaded dynamically via `assets/js/post.js` on post/page templates (`{{#is "post, page"}}`).
-- **Features**:
-  - Theme: GitHub Dark (`highlight.js/styles/github-dark.css`)
-  - Copy Button: Uses `highlightjs-copy` to display a one-click copy button on hover for `<pre><code>` blocks.
+- Loaded dynamically on post and page templates (`{{#is "post, page"}}`).
+- **Copy Button**: Powered by `highlightjs-copy` for one-click code snippet copying.
 - **Supported Languages**: `bash`, `css`, `javascript`, `typescript`, `json`, `xml/html`.
-- **Adding Languages**: Import and register new languages in `assets/js/highlight.js`:
-
-  ```js
-  import python from 'highlight.js/lib/languages/python';
-  hljs.registerLanguage('python', python);
-  ```
-
-## Using with Ghost
-
-- Copy the built theme output into your Ghost installation's `content/themes/<your-theme>/` directory (or symlink it during development).
-- Restart Ghost so it picks up the new theme, then activate it in the Ghost admin UI.
-- Adjust the `config` values in `package.json` (for example, `posts_per_page` and `card_assets`) to match your design needs.
 
 ## Project Structure
 
-- Templates: `author.hbs`, `default.hbs`, `index.hbs`, `post.hbs`, `page.hbs`, `tag.hbs`, `error-404.hbs`
-- Partials: `partials/` (header, footer, navigation, pagination, cards, hmr)
-- Components: `partials/components` (button and icon). These are reusable UI partials built with Lucide icons.
-- Assets: `assets/` (CSS, JS, images) compiled by Vite into `assets/dist/`
-- Build config: `vite.config.ts`
-
-## Styling
-
-- Tailwind CSS 4 is included via `@tailwindcss/vite` and `@tailwindcss/typography`.
-- Add utility classes in `assets/css/styles.css` and extend via Tailwind config or CSS variables.
-
-## Lucide Icon Guide
-
-This starter uses `lucide` with a reusable Handlebars partial.
-
-1. Add the icon import in `assets/js/icons.js`.
-
-   ```js
-   import { createIcons, Sun, Moon, Search, UserRound, SendHorizontal, Heart } from 'lucide';
-   ```
-
-2. Register it in the `icons` object inside `createIcons`.
-
-   ```js
-   createIcons({
-     icons: {
-       Sun,
-       Moon,
-       Search,
-       UserRound,
-       SendHorizontal,
-       Heart
-     }
-   });
-   ```
-
-3. Use the icon partial in any `.hbs` file.
-
-   ```hbs
-   {{> "components/icon" name="heart" class="w-4 h-4" ariaLabel="Heart icon"}}
-   ```
-
-## Shadcn UI CSS Variable Support
-
-This starter supports shadcn-style design tokens (CSS variables):
-
-- Variables defined in `assets/css/shadcn-variables.css`.
-- Imported in `assets/css/styles.css`.
-- Includes `:root` variables for light mode and `.dark` variables for dark mode.
-- `@theme inline` mappings for Tailwind CSS 4 tokens.
-
-## Vite Plugin List
-
-The following plugins are configured in `vite.config.ts`:
-
-- `ghostHmrPlugin`: watches Handlebars (`.hbs`) templates, invalidates module graph for Tailwind CSS v4, and triggers full browser reloads for Ghost CMS.
-- `@tailwindcss/vite`: compiles Tailwind CSS 4 during build and development.
-- `vite-plugin-image-optimizer`: optimizes image assets (jpg/png/webp/svg/avif) for maximum performance.
-- `vite-plugin-zip-pack` (production mode): creates a theme `.zip` archive ready for upload.
+- **Templates**: `author.hbs`, `default.hbs`, `index.hbs`, `post.hbs`, `page.hbs`, `tag.hbs`, `error-404.hbs`
+- **Partials**: `partials/` (header, footer, navigation, pagination, cards, share, show-comment)
+- **Components**: `partials/components/icon.hbs` (Reusable SVG icon helper powered by Lucide)
+- **Assets**: `assets/css/`, `assets/js/`, compiled by Vite into `assets/dist/`
+- **Build Config**: `vite.config.ts`
 
 ## Scripts
 
-- `pnpm dev` — Starts Vite HMR dev server on port 5173 for live reloading inside Ghost templates.
-- `pnpm build` — Creates a production build and generates the theme ZIP file.
-- `pnpm test` — Tests the Ghost CMS v6 theme using the `gscan` CLI.
+- `pnpm dev` — Starts Vite HMR dev server on port 5173 for live reloading.
+- `pnpm build` — Compiles production assets and generates `pulse.zip`.
+- `pnpm test` — Validates Ghost CMS 6 compatibility using `gscan`.
+- `pnpm screenshot` — Captures full-page screenshots of all routes across mobile, tablet, and desktop viewports.
 
-## Licensing
+## License
 
-This starter is released under the MIT License (see LICENSE.md). You are free to use it for personal, client, or commercial projects.
+Released under the MIT License (see [LICENSE.md](file:///home/officialrajdeepsingh/frontendweb/ghost-theme/pulse/LICENSE.md)).
