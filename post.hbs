@@ -1,74 +1,191 @@
-{{!< default}} {{#post}} <article class="pt-12 md:pt-28 px-4 max-w-6xl md:px-8 mx-auto w-full">
+{{!< default}} {{#post}} <article class="pt-8 md:pt-16 px-4 max-w-[1440px] md:px-8 mx-auto w-full">
 
-    <!-- Header Section (Wider width) -->
-    <header class="mb-10 pb-8 py-10 text-center max-w-6xl mx-auto">
-        <h1 class="text-3xl md:text-6xl font-extrabold tracking-tight leading-tight text-foreground mb-6">
+    <!-- Header Section (Centered Hero) -->
+    <header class="mb-12 text-center max-w-4xl mx-auto">
+
+        <h1 class="text-3xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight text-foreground mb-6">
             {{title}}
         </h1>
-        <p
-            class="text-sm md:text-lg font-medium tracking-tight leading-tight text-muted-foreground mb-6 max-w-4xl mx-auto">
+
+        {{#if excerpt}}
+        <p class="text-base md:text-xl font-medium text-muted-foreground leading-relaxed mb-8 max-w-3xl mx-auto">
             {{excerpt}}
         </p>
+        {{/if}}
 
-        <!-- Author, Date, Reading Time Header Metadata -->
+        <!-- Metadata Pill Bar -->
         <div class="flex flex-wrap items-center justify-center gap-4 text-xs text-muted-foreground">
-            <div class="flex flex-wrap items-center gap-3">
+            <div
+                class="flex flex-wrap items-center gap-5 md:gap-3.5 bg-card/60 border border-border/60 backdrop-blur-md px-8 md:px-10 py-3 rounded-full shadow-xs">
                 {{#foreach authors}}
                 <div class="flex items-center gap-2">
                     {{#if profile_image}}
                     <img src="{{img_url profile_image size=" xs"}}" alt="{{name}}"
-                        class="w-7 h-7 rounded-full border border-border object-cover" />
-                    {{else}}
-                    <div
-                        class="w-7 h-7 rounded-full border border-border bg-secondary flex items-center justify-center text-[10px] font-bold text-foreground">
-                        {{name}}
-                    </div>
+                        class="w-6 h-6 rounded-full border border-border object-cover" />
                     {{/if}}
                     <a href="{{url}}"
-                        class="font-medium text-foreground hover:text-muted-foreground transition-colors">{{name}}</a>
+                        class="font-medium text-foreground hover:opacity-80 hover:text-primary transition-colors">{{name}}</a>
                 </div>
                 {{/foreach}}
 
                 <span>&middot;</span>
 
-                <time datetime="{{date published_at format=" YYYY-MM-DD"}}">{{date published_at format="MMMM D,
-                    YYYY"}}</time>
+                <time datetime="{{date published_at format=" YYYY-MM-DD"}}">
+                    {{date published_at format="MMMM D, YYYY"}}
+                </time>
 
                 <span>&middot;</span>
 
-                <span>{{reading_time}}</span>
+                <span class="flex items-center gap-1.5">
+                    {{> "components/icon" name="clock" class="w-3.5 h-3.5 text-muted-foreground"}}
+                    {{reading_time}}
+                </span>
                 <span>&middot;</span>
+
                 {{#primary_tag}}
-                <span>
-                    <a href="{{url}}"
-                        class="flex items-center gap-2 text-xs text-foreground hover:text-muted-foreground transition-colors p-2">
-                        {{> "components/icon" name="tag" class="w-4 h-4" ariaLabel="Tag {{name}}"}} {{name}}
-                    </a>
-                </span>
+                <a href="{{url}}"
+                    class="inline-flex items-center gap-1.5 px-2 py-1 hover:opacity-80 text-foreground transition-all">
+                    {{> "components/icon" name="tag" class="w-3.5 h-3.5 text-foreground"}}
+                    {{name}}
+                </a>
                 {{/primary_tag}}
-                {{#has visibility="public"}}
-                <span>&middot;</span>
-                <span>
-                    <a href="/#/share"
-                        class="flex items-center gap-2 text-xs text-foreground hover:text-muted-foreground transition-colors p-2">
-                        {{> "components/icon" name="share-2" class="w-4 h-4" ariaLabel="Share {{title}}"}}
-                        Share
-                    </a>
-                </span>
-                {{/has}}
             </div>
         </div>
     </header>
 
+    <!-- 3-Column Layout Grid: Left Sidebar, Centered Content, Right Sticky Prev/Next Sidebar -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 xl:gap-12 items-start w-full mx-auto">
 
-    <!-- Article Content (max-w-3xl) -->
-    <div class="max-w-3xl mx-auto w-full">
-        <div
-            class="prose prose-invert max-w-none prose-headings:font-bold prose-headings:text-foreground prose-a:text-foreground prose-a:underline hover:prose-a:text-muted-foreground prose-pre:bg-card prose-pre:border prose-pre:border-border prose-img:rounded-xl">
-            {{content}}
-        </div>
+        <!-- Left Sidebar: Author Info & Share Actions (3 Columns on LG) -->
+        <aside class="lg:col-span-3 w-full lg:sticky lg:top-28 z-20 space-y-6 hidden lg:block">
+            <div
+                class="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-muted-foreground pb-2 border-b border-border/40">
+                <span>Share on social media</span>
+            </div>
+            <!-- Share Post Widget -->
+            <div class="space-y-3">
+                <div class="flex flex-col justify-start items-start gap-2.5">
+                    <a href="#/share"
+                        class="flex items-center justify-center w-9 h-9 shrink-0 rounded-lg bg-secondary/50 text-foreground hover:bg-secondary hover:text-foreground transition-all [&_svg]:w-4 [&_svg]:h-4 [&_svg]:max-w-4 [&_svg]:max-h-4 [&_svg]:shrink-0"
+                        aria-label="Share on social media">
+                        {{> "components/icon" name="share-2" class="w-4 h-4" ariaLabel="Share on social media"}}
+                    </a>
 
-        {{> "show-comment"}}
+                    <a href="https://twitter.com/intent/tweet?text={{encode title}}&url={{encode (url absolute="
+                        true")}}" target="_blank" rel="noopener noreferrer" aria-label="Share on X"
+                        class="flex items-center justify-center w-9 h-9 shrink-0 rounded-lg bg-secondary/50 text-foreground hover:bg-secondary hover:text-foreground transition-all [&_svg]:w-4 [&_svg]:h-4 [&_svg]:max-w-4 [&_svg]:max-h-4 [&_svg]:shrink-0">
+                        {{> "icons/x"}}
+                    </a>
+
+                    <a href="https://www.linkedin.com/shareArticle?mini=true&url={{encode (url absolute="
+                        true")}}&title={{encode title}}" target="_blank" rel="noopener noreferrer"
+                        aria-label="Share on LinkedIn"
+                        class="flex items-center justify-center w-9 h-9 shrink-0 rounded-lg bg-secondary/50 text-foreground hover:bg-secondary hover:text-foreground transition-all [&_svg]:w-4 [&_svg]:h-4 [&_svg]:max-w-4 [&_svg]:max-h-4 [&_svg]:shrink-0">
+                        {{> "icons/linkedin"}}
+                    </a>
+
+                </div>
+            </div>
+        </aside>
+
+        <!-- Center Column: Article Content & Comments (6 Columns on LG) -->
+        <main class="lg:col-span-6 w-full max-w-3xl mx-auto lg:max-w-none relative z-10">
+            <div
+                class="prose prose-invert max-w-none prose-headings:font-bold prose-headings:text-foreground prose-a:text-primary prose-a:no-underline hover:prose-a:underline prose-pre:bg-card prose-pre:border prose-pre:border-border prose-img:rounded-2xl">
+                {{content}}
+            </div>
+
+            <div class="mt-12 pt-8 border-t border-border/60">
+                {{> "show-comment"}}
+            </div>
+        </main>
+
+        <!-- Right Sticky Sidebar: Previous & Next Post Cards (3 Columns on LG) -->
+        <aside class="lg:col-span-3 w-full lg:sticky lg:top-28 z-20 space-y-4 mt-8 lg:mt-0">
+            <div
+                class="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-muted-foreground pb-2 border-b border-border/40">
+                {{> "components/icon" name="compass" class="w-4 h-4 text-primary"}}
+                <span>Continue Reading</span>
+            </div>
+
+            {{#prev_post}}
+            <a href="{{url}}"
+                class="group relative flex flex-col gap-3 p-4 rounded-sm border border-border/60 bg-card/40 backdrop-blur-md hover:border-primary/50 hover:bg-card/70 hover:-translate-y-0.5 transition-all duration-300 shadow-xs hover:shadow-md hover:shadow-primary/5 overflow-hidden block">
+                <!-- Ambient hover glow gradient overlay -->
+                <div
+                    class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br from-primary/10 via-primary/5 to-transparent pointer-events-none">
+                </div>
+
+                <!-- Card Header Label & Meta -->
+                <div
+                    class="flex items-center justify-between gap-2 text-[11px] font-semibold tracking-wider text-muted-foreground group-hover:text-primary transition-colors">
+                    <div class="flex items-center gap-1.5 mb-2 uppercase">
+                        {{> "components/icon" name="arrow-left" class="w-3.5 h-3.5 transition-transform duration-300
+                        group-hover:-translate-x-1"}}
+                        <span>Previous Post</span>
+                    </div>
+                    {{#if reading_time}}
+                    <span class="text-[10px] normal-case font-normal text-muted-foreground/70">
+                        {{reading_time}}
+                    </span>
+                    {{/if}}
+                </div>
+
+                <!-- Post Title & Feature Image -->
+                <div class="flex items-center md:items-start gap-3 relative z-10">
+                    {{#if feature_image}}
+                    <img src="{{img_url feature_image size=" xs"}}" alt="{{title}}"
+                        class="w-12 h-12 rounded-sm object-cover border border-border/40 shrink-0 transition-transform duration-300 group-hover:scale-105" />
+                    {{/if}}
+                    <div class="flex-1 min-w-0">
+                        <h4
+                            class="text-xs font-bold text-foreground group-hover:text-primary transition-colors line-clamp-3 leading-snug">
+                            {{title}}
+                        </h4>
+                    </div>
+                </div>
+            </a>
+            {{/prev_post}}
+
+            {{#next_post}}
+            <a href="{{url}}"
+                class="group relative flex flex-col gap-3 p-4 rounded-sm border border-border/60 bg-card/40 backdrop-blur-md hover:border-primary/50 hover:bg-card/70 hover:-translate-y-0.5 transition-all duration-300 shadow-xs hover:shadow-md hover:shadow-primary/5 overflow-hidden block">
+                <!-- Ambient hover glow gradient overlay -->
+                <div
+                    class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-bl from-primary/10 via-primary/5 to-transparent pointer-events-none">
+                </div>
+
+                <!-- Card Header Label & Meta -->
+                <div
+                    class="flex items-center justify-between gap-2 text-[11px] font-semibold tracking-wider text-muted-foreground group-hover:text-primary transition-colors">
+                    <div class="flex items-center gap-1.5 mb-2 uppercase">
+                        <span>Next Post</span>
+                        {{> "components/icon" name="arrow-right" class="w-3.5 h-3.5 transition-transform duration-300
+                        group-hover:translate-x-1"}}
+                    </div>
+                    {{#if reading_time}}
+                    <span class="text-[10px] normal-case font-normal text-muted-foreground/70">
+                        {{reading_time}}
+                    </span>
+                    {{/if}}
+                </div>
+
+                <!-- Post Title & Feature Image -->
+                <div class="flex items-center md:items-start gap-3 relative z-10">
+                    <div class="flex-1 min-w-0">
+                        <h4
+                            class="text-xs font-bold text-foreground group-hover:text-primary transition-colors line-clamp-3 leading-snug">
+                            {{title}}
+                        </h4>
+                    </div>
+                    {{#if feature_image}}
+                    <img src="{{img_url feature_image size=" xs"}}" alt="{{title}}"
+                        class="w-12 h-12 rounded-sm object-cover border border-border/40 shrink-0 transition-transform duration-300 group-hover:scale-105" />
+                    {{/if}}
+                </div>
+            </a>
+            {{/next_post}}
+        </aside>
     </div>
     </article>
 
