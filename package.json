@@ -8,7 +8,16 @@
     "email": "officialrajdeepsingh@gmail.com"
   },
   "keywords": [
-    "ghost-theme"
+    "ghost-theme",
+    "ghost-cms",
+    "ghost",
+    "blogging",
+    "blog-theme",
+    "publication",
+    "newsletter",
+    "handlebars",
+    "tailwindcss",
+    "dark-mode"
   ],
   "type": "module",
   "scripts": {
