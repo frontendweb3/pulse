@@ -2,7 +2,6 @@
 @plugin "@tailwindcss/typography";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
-@import "@fontsource-variable/inter";  /*  Add the custom font to the project */
 @import "./shadcn-variables.css";
 
 /* Add file to watch for changes in tailwind css */
@@ -13,22 +12,18 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-  
-  /* Ghost CMS fonts support and default font support as well */ 
-  --font-heading: var(--gh-font-heading, var(--font-inter));
-  --font-body: var(--gh-font-body, var(--font-inter));
+
+  /* Ghost CMS fonts support and default font support as well */
+  --font-heading: var(--gh-font-heading, var(--font-sans));
+  --font-body: var(--gh-font-body, var(--font-sans));
 
 }
 
-@layer base {  
+@layer base {
 
   body {
     font-family: var(--font-body);
     font-weight: 400;
-  }
-
-  * {
-    @apply border-border outline-ring/50;
   }
 
   body :where(:not(h1, h2, h3, h4, h5, h6)) {
@@ -43,8 +38,8 @@
 
   /* Add the support fonts in tailwindcss-typography */
   .prose {
-      --tw-prose-body: var(--font-body);
-      --tw-prose-headings: var(--font-heading);
+    --tw-prose-body: var(--font-body);
+    --tw-prose-headings: var(--font-heading);
   }
 
   .prose :where(.kg-width-wide) {
@@ -56,6 +51,6 @@
   }
 
   .prose :where(.kg-card, .kg-image-card, .kg-gallery-card, .kg-embed-card, .kg-bookmark-card) figcaption {
-     @apply text-sm text-center text-muted mt-2;
+    @apply text-sm text-center text-muted mt-2;
   }
 }
