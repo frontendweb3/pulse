@@ -2,6 +2,8 @@
 
 A minimal, high-performance Ghost CMS theme built with modern tools (Vite + Tailwind CSS 4 + Alpine.js) to deliver a sleek, dark-mode-first publishing experience.
 
+🖥️ **Live Screenshots Demo**: [https://frontendweb3.github.io/pulse/screenshots/](https://frontendweb3.github.io/pulse/screenshots/)
+
 ## Features
 
 - **Vite & HMR**: Hot Module Replacement for Handlebars (`.hbs`), CSS/Tailwind, and JavaScript assets
