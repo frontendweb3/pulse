@@ -8,11 +8,11 @@
                 href="{{@site.url}}">
                 {{#if @site.logo}}
                 <img src="{{@site.logo}}" alt="{{@site.title}}" class="h-8 md:h-9 w-auto" />
-                {{else}}
                 <span>{{@site.title}}</span>
+                {{else}}
+                {{@site.title}}
                 {{/if}}
             </a>
-
             <!-- Desktop Navigation Links -->
             <div class="hidden md:flex items-center gap-8">
                 {{#if @site.navigation}}
@@ -26,28 +26,28 @@
             <!-- Search Button -->
             <button data-ghost-search id="search-toggle" type="button" aria-label="Search posts"
                 class="flex items-center justify-center w-10 h-10 rounded-lg text-muted-foreground hover:text-foreground hover:bg-secondary/60 transition-colors">
-                <i data-lucide="search" class="w-5 h-5"></i>
+                {{> "components/icon" name="search" class="w-5 h-5"}}
             </button>
 
             {{#if @member}}
             <!-- Account Button for Logged In Members -->
             <a href="#/portal/account" data-portal="account"
                 class="hidden sm:inline-flex items-center gap-2 bg-secondary border border-border text-foreground hover:bg-secondary/80 text-sm font-semibold px-4 py-2 rounded-full transition-all shadow-sm">
-                <i data-lucide="user-round" class="w-4 h-4"></i>
+                {{> "components/icon" name="user-round" class="w-4 h-4"}}
                 <span>Account</span>
             </a>
             {{else}}
             <!-- Sign in Link (Desktop) -->
             <a href="#/portal/signin" data-portal="signin"
                 class="hidden xl:inline-flex items-center gap-2 text-sm md:text-base font-medium text-foreground hover:text-foreground/80 transition-colors px-2">
-                <i data-lucide="log-in" class="w-4 h-4"></i>
+                {{> "components/icon" name="log-in" class="w-4 h-4"}}
                 <span>Sign in</span>
             </a>
 
             <!-- Sign up Button (Desktop) -->
             <a href="#/portal/signup" data-portal="signup"
                 class="hidden sm:inline-flex items-center gap-2 bg-primary text-primary-foreground hover:bg-primary/90 text-sm md:text-base font-bold px-5 py-2.5 md:px-6 md:py-3 rounded-full transition-all shadow-sm">
-                <i data-lucide="user-plus" class="w-4 h-4"></i>
+                {{> "components/icon" name="user-plus" class="w-4 h-4"}}
                 <span>Sign up</span>
             </a>
             {{/if}}
@@ -70,13 +70,13 @@
     </nav>
 
     <!-- Mobile Dropdown Menu -->
-    <div x-show="mobileMenuOpen" x-collapse.duration.200ms
-        class="md:hidden border-t border-border/60 bg-background">
+    <div x-show="mobileMenuOpen" x-collapse.duration.200ms class="md:hidden border-t border-border/60 bg-background">
         <div class="py-4 px-4 flex flex-col gap-4">
 
             <!-- Horizontal Scrollable Navigation (scroll-x smooth) -->
             {{#if @site.navigation}}
-            <div class="overflow-x-auto scroll-smooth [webkit-overflow-scrolling:touch] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden whitespace-nowrap py-1 [&_ul]:flex [&_ul]:flex-row [&_ul]:flex-nowrap [&_ul]:gap-6 [&_li]:shrink-0">
+            <div
+                class="overflow-x-auto scroll-smooth [webkit-overflow-scrolling:touch] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden whitespace-nowrap py-1 [&_ul]:flex [&_ul]:flex-row [&_ul]:flex-nowrap [&_ul]:gap-6 [&_li]:shrink-0">
                 {{navigation}}
             </div>
             {{/if}}
@@ -86,22 +86,23 @@
                 {{#if @member}}
                 <a href="#/portal/account" data-portal="account"
                     class="flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-full bg-secondary text-foreground text-sm font-semibold hover:bg-secondary/80 transition-colors">
-                    <i data-lucide="user-round" class="w-4 h-4"></i>
+                    {{> "components/icon" name="user-round" class="w-4 h-4"}}
                     <span>Account</span>
                 </a>
                 <button data-members-signout type="button"
-                    class="text-xs text-muted-foreground hover:text-foreground py-1 text-center transition-colors">
-                    Sign out
+                    class="flex items-center justify-center gap-1.5 text-xs text-muted-foreground hover:text-foreground py-1 text-center transition-colors">
+                    {{> "components/icon" name="log-out" class="w-3.5 h-3.5"}}
+                    <span>Sign out</span>
                 </button>
                 {{else}}
                 <a href="#/portal/signin" data-portal="signin"
                     class="flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-full border border-border text-foreground text-sm font-medium hover:bg-secondary transition-colors">
-                    <i data-lucide="log-in" class="w-4 h-4"></i>
+                    {{> "components/icon" name="log-in" class="w-4 h-4"}}
                     <span>Sign in</span>
                 </a>
                 <a href="#/portal/signup" data-portal="signup"
                     class="flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-full bg-primary text-primary-foreground text-sm font-bold hover:bg-primary/90 transition-colors shadow-sm">
-                    <i data-lucide="user-plus" class="w-4 h-4"></i>
+                    {{> "components/icon" name="user-plus" class="w-4 h-4"}}
                     <span>Sign up</span>
                 </a>
                 {{/if}}

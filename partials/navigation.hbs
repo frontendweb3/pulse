@@ -1,19 +1,23 @@
 {{#if isSecondary}}
-    <ul class="flex flex-wrap items-center gap-6 list-none p-0 m-0">
-        {{#foreach navigation}}
-            <li>
-                <a href="{{url absolute="true"}}" class="text-sm text-muted-foreground hover:text-foreground transition-colors">{{label}}</a>
-            </li>
-        {{/foreach}}
-    </ul>
+<ul class="flex flex-wrap items-center gap-6 list-none p-0 m-0">
+    {{#foreach navigation}}
+    <li class="group transition-all duration-200 hover:-translate-y-0.5">
+        {{#link href=(url) class="text-sm md:text-base text-foreground hover:underline underline-offset-4
+        hover:text-foreground/70 transition-colors"}}
+        {{label}}
+        {{/link}}
+    </li>
+    {{/foreach}}
+</ul>
 {{else}}
-    <ul class="flex items-center gap-8 list-none p-0 m-0">
-        {{#foreach navigation}}
-            <li>
-                <a href="{{url absolute="true"}}" class="text-sm md:text-base font-medium text-muted-foreground hover:text-foreground transition-colors {{#if current}}text-foreground font-bold{{/if}}">{{label}}</a>
-            </li>
-        {{/foreach}}
-    </ul>
+<ul class="flex items-center gap-8 list-none p-0 m-0">
+    {{#foreach navigation}}
+    <li class="group transition-all duration-200 hover:-translate-y-0.5">
+        {{#link href=(url) class="relative inline-flex items-center text-sm md:text-base text-foreground hover:text-foreground/70 transition-colors after:content-[''] after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-full after:bg-primary after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300 after:origin-left [&.is-active]:after:scale-x-100"
+        activeClass="is-active font-semibold"}}
+        {{label}}
+        {{/link}}
+    </li>
+    {{/foreach}}
+</ul>
 {{/if}}
-
-

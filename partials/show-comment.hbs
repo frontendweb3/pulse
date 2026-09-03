@@ -1,13 +1,7 @@
 <!-- Comments & Action Buttons Section -->
+{{#if comments}}
 <div id="comments" x-data="{ openComments: false }" class="w-full my-28 py-8">
     <div class="flex flex-wrap items-center justify-center gap-4">
-
-        {{#has visibility="public"}}
-        <!-- Share Button -->
-        {{> "share"}}
-        {{/has}}
-
-        {{#if comments}}
         <!-- Show / Hide Comments Button -->
         <button type="button" @click="openComments = !openComments"
             :class="openComments ? 'bg-secondary text-foreground border-primary/50 ring-1 ring-primary/20' : 'bg-secondary/80 text-foreground border-border hover:bg-secondary'"
@@ -24,15 +18,13 @@
                 {{comment_count empty="0" singular="" plural=""}}
             </span>
         </button>
-        {{/if}}
     </div>
 
     <!-- Full Width Comments Collapsible Panel -->
-    {{#if comments}}
     <div x-show="openComments" x-collapse.duration.200ms class="mt-8 w-full">
         <div class="rounded-sm p-6 w-full shadow-lg">
             {{comments mode="dark"}}
         </div>
     </div>
-    {{/if}}
 </div>
+{{/if}}
