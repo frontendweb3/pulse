@@ -57,7 +57,10 @@
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 xl:gap-12 items-start w-full mx-auto">
 
         <!-- Left Sidebar: Author Info & Share Actions (3 Columns on LG) -->
-        <aside class="lg:col-span-3 w-full lg:sticky lg:top-28 z-20 space-y-6 hidden lg:block">
+        <aside class="lg:col-span-3 w-full lg:sticky lg:top-28 z-20 space-y-6 hidden lg:block"
+            x-data="{ shown: false }"
+            x-intersect:enter="shown = true"
+            :class="shown && 'animate-in fade-in slide-in-from-left-8 fill-mode-forwards duration-500'">
             <div
                 class="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-muted-foreground pb-2 border-b border-border/40">
                 <span>Share on social media</span>
@@ -101,7 +104,10 @@
         </main>
 
         <!-- Right Sticky Sidebar: Previous & Next Post Cards (3 Columns on LG) -->
-        <aside class="lg:col-span-3 w-full lg:sticky lg:top-28 z-20 space-y-4 mt-8 lg:mt-0">
+        <aside class="lg:col-span-3 w-full lg:sticky lg:top-28 z-20 space-y-4 mt-8 lg:mt-0"
+            x-data="{ shown: false }"
+            x-intersect:enter="shown = true"
+            :class="shown && 'animate-in fade-in slide-in-from-right-8 fill-mode-forwards duration-500'">
             <div
                 class="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-muted-foreground pb-2 border-b border-border/40">
                 {{> "components/icon" name="compass" class="w-4 h-4 text-primary"}}
