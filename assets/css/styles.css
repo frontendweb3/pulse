@@ -9,8 +9,6 @@
 @source '../../**/*.hbs';
 @source '../assets/**/*.{js,css,png,jpg,jpeg,gif,svg,webp,avif}';
 
-@custom-variant dark (&:is(.dark *));
-
 @theme {
 
   /* Ghost CMS fonts support and default font support as well */
