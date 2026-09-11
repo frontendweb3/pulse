@@ -57,8 +57,7 @@
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 xl:gap-12 items-start w-full mx-auto">
 
         <!-- Left Sidebar: Author Info & Share Actions (3 Columns on LG) -->
-        <aside class="lg:col-span-3 w-full lg:sticky lg:top-28 z-20 space-y-6 hidden lg:block"
-            x-data="{ shown: false }"
+        <aside class="lg:col-span-3 w-full lg:sticky lg:top-28 z-20 space-y-6 hidden lg:block" x-data="{ shown: false }"
             x-intersect:enter="shown = true"
             :class="shown && 'animate-in fade-in slide-in-from-left-8 fill-mode-forwards duration-500'">
             <div
@@ -104,8 +103,7 @@
         </main>
 
         <!-- Right Sticky Sidebar: Previous & Next Post Cards (3 Columns on LG) -->
-        <aside class="lg:col-span-3 w-full lg:sticky lg:top-28 z-20 space-y-4 mt-8 lg:mt-0"
-            x-data="{ shown: false }"
+        <aside class="lg:col-span-3 w-full lg:sticky lg:top-28 z-20 space-y-4 mt-8 lg:mt-0" x-data="{ shown: false }"
             x-intersect:enter="shown = true"
             :class="shown && 'animate-in fade-in slide-in-from-right-8 fill-mode-forwards duration-500'">
             <div
@@ -116,10 +114,10 @@
 
             {{#prev_post}}
             <a href="{{url}}"
-                class="group relative flex flex-col gap-3 p-4 rounded-sm border border-border/60 bg-card/40 backdrop-blur-md hover:border-primary/50 hover:bg-card/70 hover:-translate-y-0.5 transition-all duration-300 shadow-xs hover:shadow-md hover:shadow-primary/5 overflow-hidden block">
+                class="group relative flex flex-col gap-3 p-4 rounded-sm border border-border/60 bg-card/40 backdrop-blur-md hover:border-primary/50 hover:bg-card/70 hover:-translate-y-0.5 transition-all duration-300 shadow-xs hover:shadow-md hover:shadow-primary/5 overflow-hidden">
                 <!-- Ambient hover glow gradient overlay -->
                 <div
-                    class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br from-primary/10 via-primary/5 to-transparent pointer-events-none">
+                    class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-linear-to-br from-primary/10 via-primary/5 to-transparent pointer-events-none">
                 </div>
 
                 <!-- Card Header Label & Meta -->
@@ -155,10 +153,10 @@
 
             {{#next_post}}
             <a href="{{url}}"
-                class="group relative flex flex-col gap-3 p-4 rounded-sm border border-border/60 bg-card/40 backdrop-blur-md hover:border-primary/50 hover:bg-card/70 hover:-translate-y-0.5 transition-all duration-300 shadow-xs hover:shadow-md hover:shadow-primary/5 overflow-hidden block">
+                class="group relative flex flex-col gap-3 p-4 rounded-sm border border-border/60 bg-card/40 backdrop-blur-md hover:border-primary/50 hover:bg-card/70 hover:-translate-y-0.5 transition-all duration-300 shadow-xs hover:shadow-md hover:shadow-primary/5 overflow-hidden">
                 <!-- Ambient hover glow gradient overlay -->
                 <div
-                    class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-bl from-primary/10 via-primary/5 to-transparent pointer-events-none">
+                    class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-linear-to-bl from-primary/10 via-primary/5 to-transparent pointer-events-none">
                 </div>
 
                 <!-- Card Header Label & Meta -->
