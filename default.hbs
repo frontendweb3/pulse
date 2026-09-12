@@ -4,8 +4,16 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    {{#is "error"}}
+    <title>{{statusCode}} — {{message}}</title>
+    <meta name="robots" content="noindex, follow">
+    {{else}}
+    {{#is "paged"}}
+    <title>Page {{pagination.page}} | {{@site.title}}</title>
+    {{else}}
     <title>{{meta_title}}</title>
-
+    {{/is}}
+    {{/is}}
     <!-- BEGIN HMR DEV SCRIPT -->
     <script id="ghost-vite-hmr">
         (function () {
